@@ -19,7 +19,12 @@ public class DBHelper {
     /**
      * 参数
      */
-    private static final String URL       = "jdbc:oracle:thin:@192.168.1.39:1521:orcl";
+    private static final String testurl   = "测试////";
+    /**
+     * 参数
+     */
+    private static final String URL       = "jdbc:oracle:thin:@192.168.1.39:1521:oradb";
+
     /**
      * 参数
      */
@@ -35,6 +40,7 @@ public class DBHelper {
 
     /**
      * getConnection:(获取数据库连接). <br/>
+     * 
      * @return 返回结果：Connection <br/>
      * @author Lance.Wu <br/>
      * @since JDK 1.6 PayIFramework 1.0 <br/>
@@ -54,6 +60,7 @@ public class DBHelper {
 
     /**
      * select:(查询表信息). <br/>
+     * 
      * @param sql sql <br/>
      * @return 返回结果：ResultSet <br/>
      * @author Lance.Wu <br/>
@@ -61,7 +68,7 @@ public class DBHelper {
      */
     private static ResultSet select(String sql) {
         Connection conn = getConnection();
-        ResultSet  rs   = null;
+        ResultSet rs = null;
         try {
             Statement cs = conn.createStatement();
             rs = cs.executeQuery(sql);
@@ -73,6 +80,7 @@ public class DBHelper {
 
     /**
      * getTableInfo:(获取表信息). <br/>
+     * 
      * @param tableName 表名
      * @return 返回结果：Map<String,Object> <br/>
      * @author Lance.Wu <br/>
@@ -94,7 +102,7 @@ public class DBHelper {
         try {
 
             List<Map<String, Object>> clist = new ArrayList<Map<String, Object>>();
-            int                       i     = 1;
+            int i = 1;
             while (rs.next()) {
                 Map<String, Object> citem = new LinkedHashMap<String, Object>();
                 /** 字段名 */
@@ -103,9 +111,9 @@ public class DBHelper {
                 String columnDesc = rs.getString("COMMENTS");
                 columnDesc = EmptyChecker.isEmpty(columnDesc) ? "" : columnDesc;
                 String columnClsName = changeClumn(columnName);
-                String columnType    = changeDateType(rs.getString("DATA_TYPE"));
+                String columnType = changeDateType(rs.getString("DATA_TYPE"));
                 String columnClsType = changeClsType(columnType);
-                String isNull        = rs.getString("NULLABLE");
+                String isNull = rs.getString("NULLABLE");
                 /** 字段名、Java类字段、字段描述、字段类型、Java类字段类型 */
                 citem.put("columnName", columnName);
                 citem.put("columnClsName", columnClsName);
@@ -130,16 +138,17 @@ public class DBHelper {
 
     /**
      * changeClsName:(获取对像名). <br/>
+     * 
      * @param tableName tableName
      * @return <br/>
      * @author Lance.Wu <br/>
      * @since JDK 1.6 PayIFramework 1.0 <br/>
      */
     private static String changeClsName(String tableName) {
-        StringBuffer sb        = new StringBuffer();
-        String       lowerCase = tableName.toLowerCase();
-        boolean      f         = false;
-        int          i         = 1;
+        StringBuffer sb = new StringBuffer();
+        String lowerCase = tableName.toLowerCase();
+        boolean f = false;
+        int i = 1;
         for (char c : lowerCase.toCharArray()) {
             int a = (int) c;
             if (a == 95) {
@@ -160,15 +169,16 @@ public class DBHelper {
 
     /**
      * changeClumn:(获取字段类型). <br/>
+     * 
      * @param str str
      * @return 返回结果：String <br/>
      * @author Lance.Wu <br/>
      * @since JDK 1.6 PayIFramework 1.0 <br/>
      */
     private static String changeClumn(String str) {
-        StringBuffer sb        = new StringBuffer();
-        String       lowerCase = str.toLowerCase();
-        boolean      f         = false;
+        StringBuffer sb = new StringBuffer();
+        String lowerCase = str.toLowerCase();
+        boolean f = false;
         for (char c : lowerCase.toCharArray()) {
             int a = (int) c;
             if (a == 95) {
@@ -187,6 +197,7 @@ public class DBHelper {
 
     /**
      * changeDateType:(设置数据类型). <br/>
+     * 
      * @param dataType dataType
      * @return <br/>
      * @author Lance.Wu <br/>
@@ -221,6 +232,7 @@ public class DBHelper {
 
     /**
      * changeClsType:(获取java对像类蓴). <br/>
+     * 
      * @param dataType dataType
      * @return <br/>
      * @author Lance.Wu <br/>
@@ -251,6 +263,7 @@ public class DBHelper {
 
     /**
      * main:(这里用一句话描述这个方法的作用). <br/>
+     * 
      * @param args <br/>
      * @author Lance.Wu <br/>
      * @since JDK 1.6 PayIFramework 1.0 <br/>
